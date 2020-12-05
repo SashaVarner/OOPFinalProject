@@ -29,8 +29,8 @@ public class PlaceOrderCommand implements RestaurantCommandInterface {
 		try
 		{
       System.out.println("I start creating aggregators");
-			Aggregator newAggeragator=new Aggregator(this.menuData, newOrder);
-			return newAggeragator;
+			Aggregator newAggregator=new Aggregator(this.menuData, newOrder);
+			return newAggregator;
 		}
 		catch(IllegalArgumentException iae)
 		{

@@ -5,7 +5,8 @@ public class Aggregator {
 	private Menu newMenu;
 	private Order newOrder;
 	private TabInterface currentTab;
-	private Table restaurantTables;
+	private EmployeeAccounts employeeAccount;
+//	private Table restaurantTables;
 	
 	/**
 	 * Default constructor
@@ -27,7 +28,7 @@ public class Aggregator {
 	 * @param aMenu
 	 * @param anOrder
 	 */
-	public Aggregator(Menu aMenu, Order anOrder)
+public Aggregator(Menu aMenu, Order anOrder)
 	throws IllegalArgumentException
 	{
 		//create a copy of the menu and order objects
@@ -37,7 +38,9 @@ public class Aggregator {
 			this.newOrder=new Order(anOrder);
 			Tab initialTab =new Tab(newMenu, newOrder);
 			this.currentTab= new HolidayDecorator(initialTab);
-			// This is creating the new tab
+
+			//Not sure what this is supposed to be
+//			this.currentSeating = new Table();
 		}
 		catch(IllegalArgumentException iae)
 		{
@@ -79,5 +82,14 @@ public class Aggregator {
 	{
 		return this.currentTab;
 	}
-	
-}
+
+	public EmployeeAccounts signIn(String employeeId, String firstName, String lastName)
+	{
+		this.employeeAccount = new EmployeeAccounts(employeeId, firstName, lastName);
+		return this.employeeAccount;
+	}
+	public EmployeeAccounts signOut(String employeeId, String firstName, String lastName)
+	{
+		this.employeeAccount = new EmployeeAccounts(employeeId, firstName, lastName);
+		return this.employeeAccount;
+	}}

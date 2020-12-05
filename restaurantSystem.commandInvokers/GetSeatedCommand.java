@@ -1,7 +1,19 @@
 package restaurantSystem.commandInvokers;
-import restaurantSystem.commandInvokers.RestaurantCommandInterface;
 import restaurantSystem.restaurantData.Aggregator;
+import restaurantSystem.restaurantData.RestaurantTables;
 
-public class GetSeatedCommand {
+public class GetSeatedCommand implements RestaurantCommandInterface {
+
+    private RestaurantTables restaurantTables;
+
+//    public GetSeatedCommand(Aggregator systemData)
+//    {
+//        this.restaurantTables=systemData.getSeated();
+//    }
+
+    @Override
+    public RestaurantTables execute() {
+        return this.restaurantTables;
+    }
 
 }

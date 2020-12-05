@@ -1,15 +1,18 @@
+import restaurantSystem.commandInvokers.CommandErrorException;
+import restaurantSystem.restaurantData.CompositeException;
+
 import java.util.*;
 
 public class UserInterface {
 
   //private SystemInterface systemInterface;
 
-  public UserInterface (){
+  public UserInterface () throws CompositeException {
     //systemInterface = SystemInterface.getSystemInterface();
     SystemInterface.initialize();
   }
 
-  public void start(){
+  public void start() throws CommandErrorException {
     boolean loopVar = true;
     while (loopVar)
     {
@@ -34,12 +37,15 @@ public class UserInterface {
       case 3: //get tab
         screen_lines = 
         SystemInterface.getTab(); break;
-      case 4:
-        System.out.println("How many people are in your party?");
-        item=itemS.nextLine();
-        screen_lines = SystemInterface.getSeated();
-        break;
-      case 5: // Finish and exit
+//      case 4:
+//        System.out.println("How many people are in your party?");
+//        item=itemS.nextLine();
+//        screen_lines = SystemInterface.getSeated(item);
+//        break;
+      case 5:
+        screen_lines = SystemInterface.timeCard("5", "Anthony", "Varner", "1");
+        //ask for sign in or sign out
+      case 6: // Finish and exit
       loopVar = false;
       break;
 

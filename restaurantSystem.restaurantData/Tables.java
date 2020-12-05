@@ -1,14 +1,12 @@
-package com.company;
+package restaurantSystem.restaurantData;
 import java.util.Enumeration;
 import java.util.Vector;
 
 
 public class Tables extends RestaurantTables {
     Vector listOfTables = new Vector();
-    //individual files/sub folders collection
-    public Tables(String tableName, int numOfSeats) {
-        super(tableName, numOfSeats);
-    }
+
+
     public void addTable(RestaurantTables rt)
             throws CompositeException {
         listOfTables.add(rt);
@@ -32,12 +30,41 @@ public class Tables extends RestaurantTables {
 
     }
 
-    public void putTablesTogether(int numOfPeople){
-        //divide by 4 to figure out of number of tables
-        for(int i = 0; i<numOfRequiredTables; i++){
-            listOfTables.remove(0);
+    public void getSeated(int guests) throws CompositeException {
+        int guestsToBeSeated=guests;
+        int seatsAtTable=0;
+        int seatedGuests=0;
+        Enumeration e = listOfTables.elements();
+        while (e.hasMoreElements()&& guests>0) {
+            RestaurantTables tableComponent =
+                    (RestaurantTables) e.nextElement();
+                    seatsAtTable = tableComponent.getNumSeats();
+                    if(guestsToBeSeated>seatsAtTable) {
+                        seatedGuests=seatsAtTable;
+                    } else{
+                        seatedGuests=guestsToBeSeated;
+                    }
+                    tableComponent.getSeated(seatedGuests);
+                    tableComponent.setState(tableComponent);
+                    guestsToBeSeated=guestsToBeSeated-seatedGuests;
+        }
+        }
 
+    public void getUnseated()
+            throws CompositeException {
+        Enumeration e = listOfTables.elements();
+        while (e.hasMoreElements()) {
+            RestaurantTables tableComponent =
+                    (RestaurantTables) e.nextElement();
+            if (tableComponent.returnOccupiedStatus()==true){
+                tableComponent.getUnseated();
+                tableComponent.setState(tableComponent);
+            }
         }
 
     }
+
+
+
+
 }//End of class

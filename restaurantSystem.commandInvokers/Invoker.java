@@ -1,6 +1,6 @@
 package restaurantSystem.commandInvokers;
-
 import restaurantSystem.restaurantData.Aggregator;
+import restaurantSystem.restaurantData.EmployeeAccounts;
 import restaurantSystem.restaurantData.Menu;
 import restaurantSystem.restaurantData.OrderItem;
 import restaurantSystem.restaurantData.TabInterface;
@@ -92,6 +92,37 @@ public class Invoker {
 		}
   }
 
-    public Object getSeated() {
+//    public RestaurantTables getSeated(int numberOfGuests) {
+//        RestaurantCommandInterface getSeatedCmd=new GetSeatedCommand(this.agg);
+//        try
+//        {
+//            RestaurantTables newRestaurantTables=(RestaurantTables) getSeatedCmd.execute();
+//            return newRestaurantTables;
+//        }
+//        catch(CommandErrorException cee)
+//        {
+//            //Throw an IllegalStateException, because this means Tab
+//            //is not in a state is should be in following execute command
+//            //This likely means that there is a problem with the aggregator
+//            throw new IllegalStateException(
+//                    "An unexpected Error occurred while getting seated");
+//
+//        }
+//    }
+
+    public EmployeeAccounts signIn(String employeeId, String firstName, String lastName) throws CommandErrorException {
+        RestaurantCommandInterface getSignInCmd=new SignInCommand(employeeId, firstName, lastName, this.agg);
+        EmployeeAccounts newAccount=(EmployeeAccounts) getSignInCmd.execute();
+        return newAccount;
     }
+
+    public EmployeeAccounts signOut(String employeeId, String firstName, String lastName) throws CommandErrorException {
+        RestaurantCommandInterface getSignOutCmd=new SignOutCommand(employeeId, firstName, lastName, this.agg);
+        EmployeeAccounts newAccount=(EmployeeAccounts) getSignOutCmd.execute();
+        return newAccount;
+
+    }
+
+
+
 }
